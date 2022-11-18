@@ -1,8 +1,87 @@
 ﻿// Laboratornaya2_2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <clocale>
+#include <locale.h>
 
+class ancetastud
+{
+    char fio[30];  //Переменная хранит имя студнта
+    int nomerGrup; //Переменная хранит номер группы студнта
+    int nomerStud; //Переменная хранит номер студенческого студнта
+    int reiting;   //Переменная хранит рейтинг студнта
+    int type;      //Переменная хранит метку активного компонента
+    union          //Объединение хранит переменные компонент который различается в зависимости от рейтинга студента
+    {
+        struct     //Структура хранит данные для студента отличника
+        {
+            char dopstependia[30];
+            int razmer;
+        } otl;
+        struct     //Структура хранит данные для студента хорошиста 
+        {
+            char stependia[30];
+            int razmer;
+        } hor;
+        struct     //Структура хранит данные для студента троечника 
+        {
+            char stependia[30];
+        } tro;
+        struct     //Структура хранит данные для студента двоечника
+        {
+            char adres[30];
+            char telephone[30];
+        } dvo;
+    }uch;
+}spisokstud[30]; //Массив в котором будут хранится данные студентов;
+
+//Задаем переменную структуру для создания анкеты данных о преподователях.
+class ancetaprepod
+{
+    char fio[20];    //Переменная хранит имя преподователя
+    char fakul[20];  //Переменная хранит название факультета
+    char predmet[30];//Переменная хранит предмет преподователя
+    int auditor;     //Переменная хранит номер аудитории
+    int stage;       //Переменная хранит стаж преподователя
+    int type;        //Переменная хранит метку активного компонента
+    union
+    {
+        struct    //Структура хранит данные для профессора
+        {
+            char zvanie[30];
+            int zarplata;
+            int doctorskaya;
+
+        } dol;
+        struct    //Структура хранит данные для доцента
+        {
+            char zvanie[30];
+            int zarplata;
+            int monograthiya;
+
+        } sre;
+        struct    //Структура хранит данные для старшего преподователя
+        {
+            char zvanie[30];
+            int zarplata;
+            int kolgrup;
+
+        } kor;
+        struct    //Структура хранит данные для преподователя
+        {
+            char zvanie[30];
+            int zarplata;
+            int kolchasov;
+
+        } ochkor;
+    }pre;
+
+    //}spisokprepod[30]; //Массив в котором будут хранится данные преподователей
+} *spisokprepod; //Указатель на массив в котором будут хранится данные преподователей
 
 
 int main()
