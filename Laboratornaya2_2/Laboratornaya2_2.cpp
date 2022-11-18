@@ -575,14 +575,15 @@ int main()
     int a, //Переменная отвечающая за выбор строчки в меню
         n = 0,//Количество студентов
         m = 0;//Количество преподователей
-    ancetastud dm1; // Создаем  объект класса ancetastud
+    //ancetastud dm1; // Создаем  объект класса ancetastud
         //Вызов коструктора с параметром для dm1 и без параметра для dm2
     //Выделяю память для массива преподователей
     spisokprepod = (class ancetaprepod*)malloc(sizeof(class ancetaprepod) * N);
+    //ancetaprepod *spisokprepod = new ancetaprepod;
 
     do {
         do {
-            printf("Выберите действие в меню\n");
+            printf("\nВыберите действие в меню\n");
             printf(" 1 - Ввод данных о студентах\n");
             printf(" 2 - Ввод данных о преподователях \n");
             printf(" 3 - Вывод данных о студентах\n");
@@ -660,6 +661,7 @@ int main()
     printf("\nВы вышли из системы\n");
 
     free(spisokprepod); //Очищаю память динамического массива структур
+    //delete spisokprepod;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
