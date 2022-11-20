@@ -127,7 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AncetaPrepod.cpp" />
+    <ClCompile Include="AncetaStud.cpp" />
     <ClCompile Include="Laboratornaya2_2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AncetaPrepod.h" />
+    <ClInclude Include="AncetaStud.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
