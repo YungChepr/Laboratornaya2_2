@@ -94,6 +94,36 @@ void inputstud(AncetaStud* a) //Блок - ввод данных о студен
     
 }
 
+void outputstud(AncetaStud* a) //Блок - вывод данных о студентах
+{
+    char fio[30];
+    a->getfio(fio);
+    printf(" %s ", fio);
+    /*printf(" %d ", a.nomerGrup);
+    printf(" %d ", a.nomerStud);
+    printf(" %d ", a.reiting);
+    if (a.type == 1)
+    {
+        printf(" %s ", a.uch.otl.dopstependia);
+        printf(" %d \n ", a.uch.otl.razmer);
+    }
+    if (a.type == 2)
+    {
+        printf(" %s ", a.uch.hor.stependia);
+        printf(" %d \n ", a.uch.hor.razmer);
+    }
+    if (a.type == 3)
+    {
+        printf(" %s \n ", a.uch.tro.stependia);
+    }
+    if (a.type == 4)
+    {
+        printf(" %s ", a.uch.dvo.adres);
+        printf(" %s \n ", a.uch.dvo.telephone);
+    }*/
+    
+}
+
 int main()
 {
     setlocale(LC_ALL, "RUS");
@@ -146,7 +176,22 @@ int main()
                 inputstud(spisokstud[i]);
             }
         }
-        
+
+        if (a == 3)
+        {
+            if (n != 0)
+            {
+                printf("Вывод данных о студентах\n");
+                for (i = 0; i < n; i++)
+                {
+                    outputstud(spisokstud[i]);
+                }
+            }
+            else
+            {
+                printf("Сначала введите данные хотя бы об одном студенте\n");
+            }
+        }
 
     } while (a != 7);
     printf("\nВы вышли из системы\n");

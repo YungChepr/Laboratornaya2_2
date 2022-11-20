@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "AncetaStud.h"
 
 AncetaStud::AncetaStud() //Конструктор без параметров
