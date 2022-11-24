@@ -4,8 +4,8 @@
 class AncetaPrepod
 {
 private:
-    char fio[20];    //Переменная хранит имя преподователя
-    char fakul[20];  //Переменная хранит название факультета
+    char fio[30];    //Переменная хранит имя преподователя
+    char fakul[30];  //Переменная хранит название факультета
     char predmet[30];//Переменная хранит предмет преподователя
     int auditor;     //Переменная хранит номер аудитории
     int stage;       //Переменная хранит стаж преподователя
@@ -42,9 +42,12 @@ private:
         } ochkor;
     }pre;
 public:
-    AncetaPrepod InitializationPrepod(AncetaPrepod b);
-    AncetaPrepod InputPrepod(AncetaPrepod b);
-    AncetaPrepod OutputPrepod(AncetaPrepod b);
-    int SearchByNamePrepod(AncetaPrepod b, AncetaPrepod d);
+    AncetaPrepod(); //Конструктор без параметров
+    AncetaPrepod(int type); //Конструктор с одним параметром
+    AncetaPrepod(char fio[30], char fakul[30], char predmet[30], int auditor, int stage,  int type); //Конструктор со всеми параметрами
+
+
+
+    
 };
 

@@ -37,21 +37,21 @@ public:
     AncetaStud(char fio[30], int nomerGrup, int nomerStud, int reiting, int type); //Конструктор со всеми параметрами
 
     void setfio(char fio[30]); //Установка значений переменной fio
-    /*void setnomerGrup(); //Установка значений переменной nomerGrup
-    void setnomerStud(); //Установка значений переменной nomerStud
-    void setreiting(); //Установка значений переменной reiting
-    void settype(); //Установка значений переменной type
-    void setuch(); //Установка значений переменной uch */
+    void setnomerGrup(int nomerGrup); //Установка значений переменной nomerGrup
+    void setnomerStud(int nomerStud); //Установка значений переменной nomerStud
+    void setreiting(int reiting); //Установка значений переменной reiting
+    void settype(int type); //Установка значений переменной type
+    void setuch(AncetaStud uch); //Установка значений переменной uch */
 
     char* getfio(); //Получение значений переменной fio
     void getfio(char* fio); //Получение значений переменной fio
     int getnomerGrup(); //Получение значений переменной nomerGrup
-    /*void getnomerStud(); //Получение значений переменной nomerStud
-    void getreiting(); //Получение значений переменной reiting
-    void gettype(); //Получение значений переменной type
-    void getuch(); //Получение значений переменной uch */
-
-    
-
+    int getnomerStud(); //Получение значений переменной nomerStud
+    int getreiting(); //Получение значений переменной reiting
+    int gettype(); //Получение значений переменной type
+    int getuch1(char* dopstependia); //Получение значений переменной uch */
+    int getuch2(char* stependia); //Получение значений переменной uch */
+    void getuch3(char* stependia); //Получение значений переменной uch */
+    void getuch4(char* adres, char* telephone); //Получение значений переменной uch */
 };
 

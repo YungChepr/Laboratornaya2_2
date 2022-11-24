@@ -17,77 +17,42 @@ void inputstud(AncetaStud* a) //Блок - ввод данных о студен
     char fio[30];
     gets_s(fio);
     a->setfio(fio);
-    /*do {
+
+    int nomerGrup;
+    do {
         printf(" Номер группы:(Введите в формате 5 цифр '22091')\n");
-        while (scanf("%d", &a.nomerGrup) != 1) //Проверка ввода если пользователь введет не цифру
+        while (scanf("%d", &nomerGrup) != 1) //Проверка ввода если пользователь введет не цифру
         {
             while (getchar() != '\n');
             printf("Ошибка. Введите число от как показано в примере : ");
         }
-    } while (a.nomerGrup < 10000 || a.nomerGrup >99999);
+    } while (nomerGrup < 10000 || nomerGrup >99999);
+    a->setnomerGrup(nomerGrup);
 
+    int nomerStud;
     do {
         printf(" Номер студенческого(Введите в формате 7 цифр '2111851')\n");
-        while (scanf("%d", &a.nomerStud) != 1) //Проверка ввода если пользователь введет не цифру
+        while (scanf("%d", &nomerStud) != 1) //Проверка ввода если пользователь введет не цифру
         {
             while (getchar() != '\n');
             printf("Ошибка. Введите число как показано в примере: ");
         }
-    } while (a.nomerStud < 1000000 || a.nomerStud >9999999);
+    } while (nomerStud < 1000000 || nomerStud >9999999);
+    a->setnomerStud(nomerStud);
 
+    int reiting;
     do {
         printf(" Рейтинг студента:(от 0 до 100) ");
-        while (scanf("%d", &a.reiting) != 1) //Проверка ввода если пользователь  введет не цифру
+        while (scanf("%d", &reiting) != 1) //Проверка ввода если пользователь  введет не цифру
         {
             while (getchar() != '\n');
             printf("Ошибка. Введите число как показано в примере: ");
         }
-    } while ((a.reiting < 0) || (a.reiting > 100));
+    } while ((reiting < 0) || (reiting > 100));
+    a->setreiting(reiting);
 
-    if (a.reiting >= 75)
-    {
-
-        a.type = 1;
-        strcpy(a.uch.otl.dopstependia, "Студент получает степендию ");
-        printf("Введите размер Дополнительной степендии\n");
-        scanf("%d", &a.uch.otl.razmer);
-    }
-    else
-    {
-
-        if (a.reiting >= 50)
-        {
-            a.type = 2;
-            strcpy(a.uch.hor.stependia, "Студент  получает степендию ");
-            printf("Введите размер обычной степендии\n");
-            scanf("%d", &a.uch.hor.razmer);
-        }
-        else
-        {
-            if (a.reiting >= 25)
-            {
-                a.type = 3;
-                strcpy(a.uch.hor.stependia, "Студент НЕ получает степендию ");
-
-            }
-            else
-            {
-                a.type = 4;
-                while (getchar() != '\n');
-                printf("Введите домашний адрес студента\n");
-                gets_s(a.uch.dvo.adres);
-                printf("Нажмите Enter\n");
-                while (getchar() != '\n');
-                printf("Введите телефон студента\n");
-                gets_s(a.uch.dvo.telephone);
-                printf("Нажмите Enter\n");
-
-
-            };
-        };
-
-
-    }*/
+    AncetaStud uch;
+    a->setuch(uch);
     printf("\n");
     while (getchar() != '\n');
     
@@ -99,29 +64,58 @@ void outputstud(AncetaStud* a) //Блок - вывод данных о студ�
     char fio[30];
     a->getfio(fio);
     printf(" %s ", fio);
-    /*printf(" %d ", a.nomerGrup);
-    printf(" %d ", a.nomerStud);
-    printf(" %d ", a.reiting);
-    if (a.type == 1)
-    {
-        printf(" %s ", a.uch.otl.dopstependia);
-        printf(" %d \n ", a.uch.otl.razmer);
-    }
-    if (a.type == 2)
-    {
-        printf(" %s ", a.uch.hor.stependia);
-        printf(" %d \n ", a.uch.hor.razmer);
-    }
-    if (a.type == 3)
-    {
-        printf(" %s \n ", a.uch.tro.stependia);
-    }
-    if (a.type == 4)
-    {
-        printf(" %s ", a.uch.dvo.adres);
-        printf(" %s \n ", a.uch.dvo.telephone);
-    }*/
+
+    int nomerGrup;
+    nomerGrup=a->getnomerGrup();
+    printf(" %d ", nomerGrup);
+
+    int nomerStud;
+    nomerStud = a->getnomerStud();
+    printf(" %d ", nomerStud);
+
+    int reiting;
+    reiting = a->getreiting();
+    printf(" %d ", reiting);
     
+    int type;
+    type = a->gettype();
+    if (type == 1)
+    {
+        char dopstependia[30];
+        int razmer1;
+
+        razmer1 = a->getuch1(dopstependia);
+        printf(" %s ", dopstependia);
+        printf(" %d ", razmer1);
+    }
+    if (type == 2)
+    {
+        char stependia[30];
+        int razmer2;
+
+        razmer2 = a->getuch2(stependia);
+        printf(" %s ", stependia);
+        printf(" %d ", razmer2);
+    }
+    if (type == 3)
+    {
+        char stependia[30];
+
+        a->getuch3(stependia);
+        printf(" %s ", stependia);
+       
+    }
+    if (type == 4)
+    {
+        char adres[30];
+        char telephone[30];
+
+        a->getuch4(adres, telephone);
+        printf(" %s ", adres);
+        printf(" %s ", telephone);
+
+    }
+    printf("\n");
 }
 
 int main()
