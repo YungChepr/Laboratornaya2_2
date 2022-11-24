@@ -8,6 +8,7 @@
 #include <clocale>
 #include <locale.h>
 #include "AncetaStud.h"
+#include "AncetaPrepod.h"
 //Константа хранит количество элементов массива преподователей
 const int N = 30;
 
@@ -118,6 +119,128 @@ void outputstud(AncetaStud* a) //Блок - вывод данных о студ�
     printf("\n");
 }
 
+void inputprepod(AncetaPrepod* a) //Блок - ввод данных о студентах
+{                     //gets_s(a//Тут this уже определенен//->fio);
+    printf(" ФИО: ");
+    char fio[30];
+    gets_s(fio);
+    a->setfio(fio);
+
+    printf(" Факультет: ");
+    char fakul[30];
+    gets_s(fakul);
+    a->setfakul(fakul);
+
+    printf(" Предмет: ");
+    char predmet[30];
+    gets_s(predmet);
+    a->setpredmet(predmet);
+
+    int auditor;
+    do {
+        printf(" Номер аудитории:(Введите в формате 3 цифр '421')\n");
+        while (scanf("%d", &auditor) != 1) //Проверка ввода если пользователь введет не цифру
+        {
+            while (getchar() != '\n');
+            printf("Ошибка. Введите число от как показано в примере : ");
+        }
+    } while ((auditor < 100) || (auditor >999));
+    a->setauditor(auditor);
+
+    int stage;
+    do {
+        printf(" Стаж работы:(Введите в формате 2 цифр '39')\n");
+        while (scanf("%d", &stage) != 1) //Проверка ввода если пользователь введет не цифру
+        {
+            while (getchar() != '\n');
+            printf("Ошибка. Введите число как показано в примере: ");
+        }
+    } while ((stage < 1) || (stage >99));
+    a->setstage(stage);
+
+    
+    AncetaPrepod pre;
+    a->setpre(pre);
+    printf("\n");
+    while (getchar() != '\n');
+
+
+}
+
+void outputprepod(AncetaPrepod* a) //Блок - вывод данных о преподователях
+{
+    char fio[30];
+    a->getfio(fio);
+    printf(" %s ", fio);
+
+    char fakul[30];
+    a->getfakul(fakul);
+    printf(" %s ", fakul);
+
+    char predmet[30];
+    a->getpredmet(predmet);
+    printf(" %s ", predmet);
+
+    int auditor;
+    auditor = a->getauditor();
+    printf(" %d ", auditor);
+
+    int stage;
+    stage = a->getstage();
+    printf(" %d ", stage);
+
+
+    int type;
+    type = a->gettype();
+    if (type == 1)
+    {
+        char zvanie[30];
+        int zarplata1;
+        int doctorskaya;
+
+        zarplata1 = a->getpre1(zvanie, &doctorskaya);
+        printf(" %s ", zvanie);
+        printf(" %d ", zarplata1);
+        printf(" %d ", doctorskaya);
+    }
+    if (type == 2)
+    {
+        char zvanie[30];
+        int zarplata2;
+        int monograthiya;
+
+        zarplata2 = a->getpre2(zvanie, &monograthiya);
+        printf(" %s ", zvanie);
+        printf(" %d ", zarplata2);
+        printf(" %d ", monograthiya);
+    }
+    if (type == 3)
+    {
+        char zvanie[30];
+        int zarplata3;
+        int kolgrup;
+        zarplata3 = a->getpre3(zvanie, &kolgrup);
+        printf(" %s ", zvanie);
+        printf(" %d ", zarplata3);
+        printf(" %d ", kolgrup);
+
+    }
+    if (type == 4)
+    {
+        char zvanie[30];
+        int zarplata4;
+        int kolchasov;
+
+        zarplata4 = a->getpre4(zvanie, &kolchasov);
+        printf(" %s ", zvanie);
+        printf(" %d ", zarplata4);
+        printf(" %d ", kolchasov);
+
+    }
+    printf("\n");
+}
+
+
 int main()
 {
     setlocale(LC_ALL, "RUS");
@@ -126,14 +249,16 @@ int main()
         i,//Индекс массива студентов
         m = 0,//Количество преподователей
         j,//Индекс массива преподователей
-        sumn = 0;//Количество созданных объектов студентов
+        sumn = 0,//Количество созданных объектов студентов
+        summ = 0;//Количество созданных объектов студентов
 
-    AncetaStud* spisokstud[N]; //Массив в котором будут хранится данные студентов
-     // Создаем  объект класса AncetaStud
-        
+    AncetaStud* spisokstud[N]; //Массив указателей на объекты в которых будут храниться данные студентов 
+    
+    AncetaPrepod* spisokpre = NULL; //Указатель на обьект в котором хранятся данные преподователя
+
+    AncetaPrepod** spisokprepod; //Указатель на массив в котором будут хранится указатели на объекты преподователей
     //Выделяю память для массива преподователей
-    //spisokprepod = (class ancetaprepod*)malloc(sizeof(class ancetaprepod) * N);
-    //ancetaprepod *spisokprepod = new ancetaprepod;
+    spisokprepod = (class AncetaPrepod**)malloc(sizeof(class AncetaPrepod*) * N);
 
     do {
         do {
@@ -164,14 +289,47 @@ int main()
                 }
                 while (getchar() != '\n');
             } while (n < 1 || n>20);
+
             for (i = 0; i < n; i++)
             {
                 printf("Студент %d \n", (i + 1));
                 if((i+1)>sumn)
                      spisokstud[i] = new AncetaStud();//Что будет если опция 1 будет выбрана 2 раза
-                inputstud(spisokstud[i]);
+            inputstud(spisokstud[i]);
             }
             sumn = n;
+        }
+
+        if (a == 2)
+        {
+            printf("Ввод данных о преподователях\n");
+            do
+            {
+                printf("\n Введите количество преподователей m (m<20): ");
+                while (scanf("%d", &m) != 1) //Проверка ввода если пользователь введет введет не цифру
+                {
+                    while (getchar() != '\n');
+                    printf("Ошибка. Введите число от как показано в примере : ");
+                }
+                while (getchar() != '\n');
+            } while (m < 1 || m>20);
+
+            
+
+            for (j = 0; j < m; j++)
+            {
+
+                printf("Преподователь %d \n", (j + 1));
+
+                if ((j + 1) > summ)
+                {
+                    //spisokpre = *(spisokprepod) + j;
+                    *(spisokprepod + j) = new AncetaPrepod();//Что будет если опция 2 будет выбрана 2 раза
+                    //*(spisokprepod + j) = spisokpre;
+                }
+                inputprepod(*(spisokprepod + j));
+            }
+            summ = m;
         }
 
         if (a == 3)
@@ -190,10 +348,28 @@ int main()
             }
         }
 
+        if (a == 4)
+        {
+            if (m != 0)
+            {
+                printf("Вывод данных о преподователях\n");
+                for (j = 0; j < m; j++)
+                {
+
+                    outputprepod((*(spisokprepod + j)));
+                }
+            }
+            else
+            {
+                printf("Сначала введите данные хотя бы об одном студенте\n");
+            }
+        }
+
     } while (a != 7);
     printf("\nВы вышли из системы\n");
 
     delete[] spisokstud;
+    free(spisokprepod); //Очищаю память динамического массива структур
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

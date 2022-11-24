@@ -47,7 +47,7 @@ void AncetaStud::getfio(char* fio) //Получение значений переменной fio 2
     strcpy(fio, this->fio);
 };
 
-void AncetaStud::setnomerGrup(int nomerGrup) //Установка значений переменной fio
+void AncetaStud::setnomerGrup(int nomerGrup) //Установка значений переменной nomerGrup
 {
     this->nomerGrup = nomerGrup;
 };
@@ -57,7 +57,7 @@ int AncetaStud::getnomerGrup() //Получение значений переменной nomerGrup
     return nomerGrup;
 };
 
-void AncetaStud::setnomerStud(int nomerStud) //Установка значений переменной fio
+void AncetaStud::setnomerStud(int nomerStud) //Установка значений переменной nomerStud
 {
     this->nomerStud = nomerStud;
 };
@@ -67,7 +67,7 @@ int AncetaStud::getnomerStud() //Получение значений переменной nomerGrup
     return nomerStud;
 };
 
-void AncetaStud::setreiting(int reiting) //Установка значений переменной fio
+void AncetaStud::setreiting(int reiting) //Установка значений переменной reiting
 {
     this->reiting = reiting;
 };
@@ -77,7 +77,7 @@ int AncetaStud::getreiting() //Получение значений переменной nomerGrup
     return reiting;
 };
 
-void AncetaStud::settype(int type) //Установка значений переменной fio
+void AncetaStud::settype(int type) //Установка значений переменной type
 {
     this->type = type;
 };
@@ -87,7 +87,7 @@ int AncetaStud::gettype() //Получение значений переменной nomerGrup
     return type;
 };
 
-void AncetaStud::setuch(AncetaStud uch) //Установка значений переменной fio
+void AncetaStud::setuch(AncetaStud uch) //Установка значений переменной uch
 {
     //strcpy(this->fio, fio);
     if (reiting >= 75)
