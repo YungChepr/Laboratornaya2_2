@@ -182,7 +182,7 @@ void AncetaPrepod::setpre(AncetaPrepod pre) //”становка значений переменной uch
         };
     }
 };
-
+//strcpy если копировать массив из 3 строчек в массив из 30 что будет
 int AncetaPrepod::getpre1(char* zvanie, int* doctorskaya) //ѕолучение значений переменной uch
 //ќб€зательным условием €вл€етс€ выделение области пам€ти под этот указатель
 {

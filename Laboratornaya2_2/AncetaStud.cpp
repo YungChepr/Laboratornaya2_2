@@ -45,6 +45,7 @@ void AncetaStud::getfio(char* fio) //ѕолучение значений переменной fio 2
 //ќб€зательным условием €вл€етс€ выделение области пам€ти под этот указатель
 {
     strcpy(fio, this->fio);
+    //непон€тно что передали
 };
 
 void AncetaStud::setnomerGrup(int nomerGrup) //”становка значений переменной nomerGrup
