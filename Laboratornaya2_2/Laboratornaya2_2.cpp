@@ -9,115 +9,7 @@
 #include <locale.h>
 #include "AncetaStud.h"
 #include "AncetaPrepod.h"
-//Константа хранит количество элементов массива преподователей
-const int N = 30;
 
-void inputstud(AncetaStud* a) //Блок - ввод данных о студентах
-{                     //gets_s(a//Тут this уже определенен//->fio);
-    printf(" ФИО: "); 
-    char fio[30];
-    gets_s(fio);
-    a->setfio(fio);
-
-    int nomerGrup;
-    do {
-        printf(" Номер группы:(Введите в формате 5 цифр '22091')\n");
-        while (scanf("%d", &nomerGrup) != 1) //Проверка ввода если пользователь введет не цифру
-        {
-            while (getchar() != '\n');
-            printf("Ошибка. Введите число от как показано в примере : ");
-        }
-    } while (nomerGrup < 10000 || nomerGrup >99999);
-    a->setnomerGrup(nomerGrup);
-
-    int nomerStud;
-    do {
-        printf(" Номер студенческого(Введите в формате 7 цифр '2111851')\n");
-        while (scanf("%d", &nomerStud) != 1) //Проверка ввода если пользователь введет не цифру
-        {
-            while (getchar() != '\n');
-            printf("Ошибка. Введите число как показано в примере: ");
-        }
-    } while (nomerStud < 1000000 || nomerStud >9999999);
-    a->setnomerStud(nomerStud);
-
-    int reiting;
-    do {
-        printf(" Рейтинг студента:(от 0 до 100) ");
-        while (scanf("%d", &reiting) != 1) //Проверка ввода если пользователь  введет не цифру
-        {
-            while (getchar() != '\n');
-            printf("Ошибка. Введите число как показано в примере: ");
-        }
-    } while ((reiting < 0) || (reiting > 100));
-    a->setreiting(reiting);
-
-    AncetaStud uch;
-    a->setuch(uch);
-    printf("\n");
-    while (getchar() != '\n');
-    
-    
-}
-
-void outputstud(AncetaStud* a) //Блок - вывод данных о студентах
-{
-    char fio[30];
-    a->getfio(fio);
-    printf(" %s ", fio);
-
-    int nomerGrup;
-    nomerGrup=a->getnomerGrup();
-    printf(" %d ", nomerGrup);
-
-    int nomerStud;
-    nomerStud = a->getnomerStud();
-    printf(" %d ", nomerStud);
-
-    int reiting;
-    reiting = a->getreiting();
-    printf(" %d ", reiting);
-    
-    int type;
-    type = a->gettype();
-    if (type == 1)
-    {
-        char dopstependia[30];
-        int razmer1;
-
-        razmer1 = a->getuch1(dopstependia);
-        printf(" %s ", dopstependia);
-        printf(" %d ", razmer1);
-    }
-    if (type == 2)
-    {
-        char stependia[30];
-        int razmer2;
-
-        razmer2 = a->getuch2(stependia);
-        printf(" %s ", stependia);
-        printf(" %d ", razmer2);
-    }
-    if (type == 3)
-    {
-        char stependia[30];
-
-        a->getuch3(stependia);
-        printf(" %s ", stependia);
-       
-    }
-    if (type == 4)
-    {
-        char adres[30];
-        char telephone[30];
-
-        a->getuch4(adres, telephone);
-        printf(" %s ", adres);
-        printf(" %s ", telephone);
-
-    }
-    printf("\n");
-}
 
 void inputprepod(AncetaPrepod* a) //Блок - ввод данных о студентах
 {                     //gets_s(a//Тут this уже определенен//->fio);
@@ -252,7 +144,9 @@ int main()
         sumn = 0,//Количество созданных объектов студентов
         summ = 0;//Количество созданных объектов студентов
 
-    AncetaStud* spisokstud[N]; //Массив указателей на объекты в которых будут храниться данные студентов 
+    //AncetaStud* spisokstud[N]; //Массив указателей на объекты в которых будут храниться данные студентов 
+
+    AncetaStud* spisokstud = new AncetaStud[N];
     
     AncetaPrepod* spisokpre = NULL; //Указатель на обьект в котором хранятся данные преподователя
 
@@ -294,8 +188,8 @@ int main()
             {
                 printf("Студент %d \n", (i + 1));
                 if((i+1)>sumn)
-                     spisokstud[i] = new AncetaStud();//Что будет если опция 1 будет выбрана 2 раза
-            inputstud(spisokstud[i]);
+                    // spisokstud[i] = new AncetaStud();//Что будет если опция 1 будет выбрана 2 раза
+                spisokstud[i].inputstud();
             }
             sumn = n;
         }
@@ -339,7 +233,7 @@ int main()
                 printf("Вывод данных о студентах\n");
                 for (i = 0; i < n; i++)
                 {
-                    outputstud(spisokstud[i]);
+                    //outputstud(spisokstud[i]);
                 }
             }
             else
