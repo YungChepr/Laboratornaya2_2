@@ -7,7 +7,9 @@ AncetaStud::AncetaStud() //Конструктор без параметров
     nomerGrup = 0;
     nomerStud = 0;
     reiting = 0;
-    type = typchik::OTL;
+    type = typchik::DVO;
+    uch.dvo = *(new dvoechnik);
+    
     //this->nomerGrup=0;
 };
 
@@ -18,6 +20,7 @@ AncetaStud::AncetaStud(typchik t) //Конструктор с одним параметром
     nomerStud = 0;
     reiting = 0;
     type = t;
+    uch.dvo = *(new dvoechnik);
   
 };
 
@@ -28,6 +31,7 @@ AncetaStud::AncetaStud(char f[N], int nomerG, int nomerS, int r, typchik t) //Ко
     nomerStud = nomerS;
     reiting = r;
     type = t;
+    uch.dvo = *(new dvoechnik);
 
 };
 
@@ -113,7 +117,7 @@ void AncetaStud::setuch(AncetaStud uch) //Установка значений переменной uch
             if (reiting >= 25)
             {
                 type = typchik::TRO;
-                strcpy(this->uch.hor.stependia, "Студент НЕ получает степендию ");
+                strcpy(this->uch.hor.stependia, "Студент НЕ получает степендию");
             }
             else
             {
@@ -236,19 +240,19 @@ void AncetaStud::outputstud() //Блок - вывод данных о студентах
     }
     if (type == HOR)
     {
-        char stependia[N];
+        char stependia1[N];
         int razmer2;
 
-        razmer2 = getuch2(stependia);
-        printf(" %s ", stependia);
+        razmer2 = getuch2(stependia1);
+        printf(" %s ", stependia1);
         printf(" %d ", razmer2);
     }
     if (type == TRO)
     {
-        char stependia[N];
+        char stependia2[N];
 
-        getuch3(stependia);
-        printf(" %s ", stependia);
+        getuch3(stependia2);
+        printf(" %s ", stependia2);
 
     }
     if (type == DVO)
@@ -264,7 +268,7 @@ void AncetaStud::outputstud() //Блок - вывод данных о студентах
     printf("\n");
 }
 
-int searchbynamestud(AncetaStud spisokstud[N], char  c[N]) //Блок - поиск по имени среди студентов
+int searchbynamestud(AncetaStud *spisokstud[N], char  c[N]) //Блок - поиск по имени среди студентов
 {   // функция возращает количество найденных совпадений
     int f1 = 0;
     int i;
@@ -277,56 +281,58 @@ int searchbynamestud(AncetaStud spisokstud[N], char  c[N]) //Блок - поиск по име
 
     for (i = 0; i < N; i++)  //блок проверки запросов
     {
-       
-        spisokstud[i].getfio(fio);
-        if (strcmp(c, fio) == 0)
+        if (spisokstud[i] != NULL)
         {
-            nomerGrup = spisokstud[i].getnomerGrup();
-            nomerStud = spisokstud[i].getnomerStud();
-            reiting = spisokstud[i].getreiting();
-            type = spisokstud[i].gettype();
-            printf(" %s ", fio);
-            printf(" %d ", nomerGrup);
-            printf(" %d ", nomerStud);
-            printf(" %d ", reiting);
-            if (type == OTL)
+            (* spisokstud[i]).getfio(fio);
+            if (strcmp(c, fio) == 0)
             {
-                char dopstependia[N];
-                int razmer1;
+                nomerGrup = (*spisokstud[i]).getnomerGrup();
+                nomerStud = (*spisokstud[i]).getnomerStud();
+                reiting = (*spisokstud[i]).getreiting();
+                type = (*spisokstud[i]).gettype();
+                printf(" %s ", fio);
+                printf(" %d ", nomerGrup);
+                printf(" %d ", nomerStud);
+                printf(" %d ", reiting);
+                if (type == OTL)
+                {
+                    char dopstependia[N];
+                    int razmer1;
 
-                razmer1 = spisokstud[i].getuch1(dopstependia);
-                printf(" %s ", dopstependia);
-                printf(" %d ", razmer1);
+                    razmer1 = (*spisokstud[i]).getuch1(dopstependia);
+                    printf(" %s ", dopstependia);
+                    printf(" %d ", razmer1);
+                }
+                if (type == HOR)
+                {
+                    char stependia[N];
+                    int razmer2;
+
+                    razmer2 = (*spisokstud[i]).getuch2(stependia);
+                    printf(" %s ", stependia);
+                    printf(" %d ", razmer2);
+                }
+                if (type == TRO)
+                {
+                    char stependia[N];
+
+                    (*spisokstud[i]).getuch3(stependia);
+                    printf(" %s ", stependia);
+
+                }
+                if (type == DVO)
+                {
+                    char adres[N];
+                    char telephone[N];
+
+                    (*spisokstud[i]).getuch4(adres, telephone);
+                    printf(" %s ", adres);
+                    printf(" %s ", telephone);
+
+                }
+                f1 = f1 + 1;
+                printf("\n");
             }
-            if (type == HOR)
-            {
-                char stependia[N];
-                int razmer2;
-
-                razmer2 = spisokstud[i].getuch2(stependia);
-                printf(" %s ", stependia);
-                printf(" %d ", razmer2);
-            }
-            if (type == TRO)
-            {
-                char stependia[N];
-
-                spisokstud[i].getuch3(stependia);
-                printf(" %s ", stependia);
-
-            }
-            if (type == DVO)
-            {
-                char adres[N];
-                char telephone[N];
-
-                spisokstud[i].getuch4(adres, telephone);
-                printf(" %s ", adres);
-                printf(" %s ", telephone);
-
-            }
-            f1 = f1 + 1;
-            printf("\n");
         }
     }
     if (f1 == 0)
@@ -337,7 +343,7 @@ int searchbynamestud(AncetaStud spisokstud[N], char  c[N]) //Блок - поиск по име
     return f1;
 }
 
-int searchbyreiting(AncetaStud spisokstud[N], int d) //Блок - поиск по рейтингу среди студентов
+int searchbyreiting(AncetaStud *spisokstud[N], int d) //Блок - поиск по рейтингу среди студентов
 {   // функция возращает количество найденных совпадений
     int f2 = 0;
     int i;
@@ -348,55 +354,59 @@ int searchbyreiting(AncetaStud spisokstud[N], int d) //Блок - поиск по рейтингу 
     typchik type;
     for (i = 0; i < N; i++)  //блок проверки запросов
     {
-        reiting = spisokstud[i].getreiting();
-        if (d == reiting)
+        if (spisokstud[i] != NULL)
         {
-            spisokstud[i].getfio(fio);
-            nomerGrup = spisokstud[i].getnomerGrup();
-            nomerStud = spisokstud[i].getnomerStud();
-            type = spisokstud[i].gettype();
-            printf(" %s ", fio);
-            printf(" %d ", nomerGrup);
-            printf(" %d ", nomerStud);
-            printf(" %d ", reiting);
-            if (type == OTL)
+            reiting = (*spisokstud[i]).getreiting();
+            if (d == reiting)
             {
-                char dopstependia[N];
-                int razmer1;
+                (*spisokstud[i]).getfio(fio);
+                nomerGrup = (*spisokstud[i]).getnomerGrup();
+                nomerStud = (*spisokstud[i]).getnomerStud();
+                type = (*spisokstud[i]).gettype();
+                printf(" %s ", fio);
+                printf(" %d ", nomerGrup);
+                printf(" %d ", nomerStud);
+                printf(" %d ", reiting);
+                if (type == OTL)
+                {
+                    char dopstependia[N];
+                    int razmer1;
 
-                razmer1 = spisokstud[i].getuch1(dopstependia);
-                printf(" %s ", dopstependia);
-                printf(" %d ", razmer1);
+                    razmer1 = (*spisokstud[i]).getuch1(dopstependia);
+                    printf(" %s ", dopstependia);
+                    printf(" %d ", razmer1);
+                }
+                if (type == HOR)
+                {
+                    char stependia[N];
+                    int razmer2;
+
+                    razmer2 = (*spisokstud[i]).getuch2(stependia);
+                    printf(" %s ", stependia);
+                    printf(" %d ", razmer2);
+                }
+                if (type == TRO)
+                {
+                    char stependia[N];
+
+                    (*spisokstud[i]).getuch3(stependia);
+                    printf(" %s ", stependia);
+
+                }
+                if (type == DVO)
+                {
+                    char adres[N];
+                    char telephone[N];
+
+                    (*spisokstud[i]).getuch4(adres, telephone);
+                    printf(" %s ", adres);
+                    printf(" %s ", telephone);
+
+                }
+                f2 = f2 + 1;
             }
-            if (type == HOR)
-            {
-                char stependia[N];
-                int razmer2;
-
-                razmer2 = spisokstud[i].getuch2(stependia);
-                printf(" %s ", stependia);
-                printf(" %d ", razmer2);
-            }
-            if (type == TRO)
-            {
-                char stependia[N];
-
-                spisokstud[i].getuch3(stependia);
-                printf(" %s ", stependia);
-
-            }
-            if (type == DVO)
-            {
-                char adres[N];
-                char telephone[N];
-
-                spisokstud[i].getuch4(adres, telephone);
-                printf(" %s ", adres);
-                printf(" %s ", telephone);
-
-            }
-            f2 = f2 + 1;
         }
+        printf("\n");
     }
     if (f2 == 0)
     {

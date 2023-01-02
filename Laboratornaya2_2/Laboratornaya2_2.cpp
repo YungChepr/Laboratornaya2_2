@@ -1,12 +1,7 @@
 ﻿// Laboratornaya2_2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
-#define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
-#include <conio.h>
-#include <stdio.h>
-#include <clocale>
-#include <locale.h>
+
 #include "AncetaStud.h"
 #include "AncetaPrepod.h"
 
@@ -139,38 +134,46 @@ int main()
     int a, //Переменная отвечающая за выбор строчки в меню
         n = 0,//Количество студентов
         i,//Индекс массива студентов
-        m = 0,//Количество преподователей
-        j,//Индекс массива преподователей
+        m = 0,//Количество cтудентов в динамическом массиве
+        j,//Индекс массива cтудентов в динамическом массиве
         sumn = 0,//Количество созданных объектов студентов
-        summ = 0;//Количество созданных объектов студентов
+        summ = 0;//Количество созданных объектов студентов в динамическом массиве
 
     //AncetaStud* spisokstud[N]; //Массив указателей на объекты в которых будут храниться данные студентов 
 
     AncetaStud* spisokstud = new AncetaStud[N];
-    
-    AncetaPrepod* spisokpre = NULL; //Указатель на обьект в котором хранятся данные преподователя
+    AncetaStud* spisokstud1[N]; //Указатель на массив в котором будут хранится указатели на объекты студентов
+    for (i = 0; i < N; i++)
+    {
+        spisokstud1[i] = &(spisokstud[i]);
+    }
 
-    AncetaPrepod** spisokprepod; //Указатель на массив в котором будут хранится указатели на объекты преподователей
-    //Выделяю память для массива преподователей
-    spisokprepod = (class AncetaPrepod**)malloc(sizeof(class AncetaPrepod*) * N);
+    AncetaStud** spisokstud2; //Указатель на массив в котором будут хранится указатели на объекты студентов динамический
+    //Выделяю память для динамического массива студентов
+    spisokstud2 = (class AncetaStud**)malloc(sizeof(class AncetaStud*) * N);
+    for (i = 0; i < N; i++)
+    {
+        *(spisokstud2 + i) = NULL;
+    }
 
     do {
         do {
             printf("\nВыберите действие в меню\n");
             printf(" 1 - Ввод данных о студентах\n");
-            printf(" 2 - Ввод данных о преподователях \n");
+            printf(" 2 - Ввод данных о cтудентах(динамический массив) \n");
             printf(" 3 - Вывод данных о студентах\n");
-            printf(" 4 - Вывод данных о преподователях\n");
+            printf(" 4 - Вывод данных о cтудентах(динамический массив)\n");
             printf(" 5 - Поиск по имени среди студентов\n");
-            printf(" 6 - Поиск по имени среди преподователей\n");
+            printf(" 6 - Поиск по имени среди cтудентов(динамический массив)\n");
             printf(" 7 - Поиск по рейтингу среди cтудентов\n");
-            printf(" 8 - Выход из системы\n");
+            printf(" 8 - Поиск по рейтингу среди cтудентов(динамический массив)\n");
+            printf(" 9 - Выход из системы\n");
             while (scanf("%d", &a) != 1) //Проверка ввода если пользователь  введет не цифру
             {
                 while (getchar() != '\n');
                 printf("Ошибка. Введите число от 1 до 7 включительно: ");
             }
-        } while ((a < 1) || (a > 7));
+        } while ((a < 1) || (a > 9));
 
         if (a == 1)
         {
@@ -188,19 +191,19 @@ int main()
             for (i = 0; i < n; i++)
             {
                 printf("Студент %d \n", (i + 1));
-                if((i+1)>sumn)
+                if ((i + 1) > sumn)
                     // spisokstud[i] = new AncetaStud();//Что будет если опция 1 будет выбрана 2 раза
-                spisokstud[i].inputstud();
+                    spisokstud[i].inputstud();
             }
             sumn = n;
         }
 
         if (a == 2)
         {
-            printf("Ввод данных о преподователях\n");
+            printf("Ввод данных о cтудентах(динамический массив)\n");
             do
             {
-                printf("\n Введите количество преподователей m (m<20): ");
+                printf("\n Введите количество студентов m (m<20): ");
                 while (scanf("%d", &m) != 1) //Проверка ввода если пользователь введет введет не цифру
                 {
                     while (getchar() != '\n');
@@ -209,20 +212,28 @@ int main()
                 while (getchar() != '\n');
             } while (m < 1 || m>20);
 
-            
 
+
+            /* for (j = 0; j < m; j++)
+             {
+
+                 printf("Преподователь %d \n", (j + 1));
+
+                 if ((j + 1) > summ)
+                 {
+                     //spisokpre = *(spisokprepod) + j;
+                     *(spisokprepod + j) = new AncetaPrepod();//Что будет если опция 2 будет выбрана 2 раза
+                     //*(spisokprepod + j) = spisokpre;
+                 }
+                 inputprepod(*(spisokprepod + j));
+             }*/
             for (j = 0; j < m; j++)
             {
-
-                printf("Преподователь %d \n", (j + 1));
-
+                printf("Студент %d \n", (j + 1));
                 if ((j + 1) > summ)
-                {
-                    //spisokpre = *(spisokprepod) + j;
-                    *(spisokprepod + j) = new AncetaPrepod();//Что будет если опция 2 будет выбрана 2 раза
-                    //*(spisokprepod + j) = spisokpre;
-                }
-                inputprepod(*(spisokprepod + j));
+                    // spisokstud[i] = new AncetaStud();//Что будет если опция 1 будет выбрана 2 раза
+                    *(spisokstud2 + j) = new AncetaStud();
+                (*(spisokstud2 + j))->inputstud();
             }
             summ = m;
         }
@@ -247,11 +258,11 @@ int main()
         {
             if (m != 0)
             {
-                printf("Вывод данных о преподователях\n");
+                printf("Вывод данных о cтудентах(динамический массив)\n");
                 for (j = 0; j < m; j++)
                 {
-
-                    outputprepod((*(spisokprepod + j)));
+                    (*(*(spisokstud2 + j))).outputstud();
+                    //outputprepod((*(spisokprepod + j)));
                 }
             }
             else
@@ -270,8 +281,29 @@ int main()
                 while (getchar() != '\n');
                 printf("Введите ФИО студента\n");
                 gets_s(zap1);
-                f3 = searchbynamestud(spisokstud, zap1);
+                f3 = searchbynamestud(spisokstud1, zap1);
                 printf("\n Всего найдено студентов с таким именем: %d\n ", f3);
+
+            }
+            else
+            {
+                printf("Сначала введите данные хотя бы об одном студенте\n");
+            }
+
+        }
+        if (a == 6)
+        {
+
+            int f4 = 0;
+            if (m != 0)
+            {
+                char zap2[N];
+                printf("Поиск по имени среди студентов\n");
+                while (getchar() != '\n');
+                printf("Введите ФИО студента\n");
+                gets_s(zap2);
+                f4 = searchbynamestud(spisokstud2, zap2);
+                printf("\n Всего найдено студентов с таким именем: %d\n ", f4);
 
             }
             else
@@ -297,7 +329,7 @@ int main()
                         printf("Ошибка. Введите число как показано в примере: ");
                     }
                 } while ((zap3 < 0) || (zap3 > 100));
-                f5 = searchbyreiting(spisokstud, zap3);
+                f5 = searchbyreiting(spisokstud1, zap3);
                 printf("\n Всего найдено студентов с таким рейтингом: %d\n ", f5);
 
             }
@@ -306,11 +338,38 @@ int main()
                 printf("Сначала введите данные хотя бы об одном студенте\n");
             }
         }
-    } while (a != 8);
+        if (a == 8)
+        {
+            int f6 = 0;
+            if (m != 0)
+            {
+                int zap4;
+                printf("Поиск по рейтингу среди студентов\n");
+                while (getchar() != '\n');
+                printf("Введите рейтинг студента\n");
+                do {
+                    printf(" Рейтинг студента:(от 0 до 100) ");
+                    while (scanf("%d", &zap4) != 1) //Проверка ввода если пользователь  введет не цифру
+                    {
+                        while (getchar() != '\n');
+                        printf("Ошибка. Введите число как показано в примере: ");
+                    }
+                } while ((zap4 < 0) || (zap4 > 100));
+                f6 = searchbyreiting(spisokstud2, zap4);
+                printf("\n Всего найдено студентов с таким рейтингом: %d\n ", f6);
+
+            }
+            else
+            {
+                printf("Сначала введите данные хотя бы об одном студенте\n");
+            }
+        }
+    } while (a != 9);
     printf("\nВы вышли из системы\n");
 
-    delete[] spisokstud;
-    free(spisokprepod); //Очищаю память динамического массива структур
+        delete[] spisokstud;
+        free(spisokstud2); //Очищаю память динамического массива структур
+    
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

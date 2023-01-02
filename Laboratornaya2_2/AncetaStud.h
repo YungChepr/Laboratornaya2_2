@@ -1,30 +1,35 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <conio.h>
 #include <stdio.h>
+#include <clocale>
 #include <string.h>
+#include <locale.h>
 //Константа хранит количество элементов массива преподователей
 const int N = 30;
 class otlichnik    //Структура хранит данные для студента отличника
 {
 public:
-    char dopstependia[30];
+    char dopstependia[N];
     int razmer;
 };
 class horoshist    //Структура хранит данные для студента хорошиста 
 {
 public:
-    char stependia[30];
+    char stependia[N];
     int razmer;
 };
 class troechnik    //Структура хранит данные для студента троечника 
 {
 public:
-    char stependia[30];
+    char stependia[N];
 };
 class dvoechnik    //Структура хранит данные для студента двоечника
 {
 public:
-    char adres[30];
-    char telephone[30];
+    char adres[N];
+    char telephone[N];
 };
 enum typchik
 {
@@ -75,5 +80,5 @@ public:
     void outputstud(); //Блок - вывод данных о студентах
 
 };
-int searchbynamestud(AncetaStud spisokstud[N], char с[N]);
-int searchbyreiting(AncetaStud spisokstud[N], int d);
+int searchbynamestud(AncetaStud* spisokstud[N], char с[N]);
+int searchbyreiting(AncetaStud* spisokstud[N], int d);
