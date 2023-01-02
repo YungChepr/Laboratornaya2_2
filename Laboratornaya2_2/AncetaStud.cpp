@@ -7,11 +7,11 @@ AncetaStud::AncetaStud() //Конструктор без параметров
     nomerGrup = 0;
     nomerStud = 0;
     reiting = 0;
-    type = 0;
+    type = typchik::OTL;
     //this->nomerGrup=0;
 };
 
-AncetaStud::AncetaStud(int t) //Конструктор с одним параметром
+AncetaStud::AncetaStud(typchik t) //Конструктор с одним параметром
 {
     strcpy(fio, "");
     nomerGrup = 0;
@@ -21,7 +21,7 @@ AncetaStud::AncetaStud(int t) //Конструктор с одним параметром
   
 };
 
-AncetaStud::AncetaStud(char f[N], int nomerG, int nomerS, int r, int t) //Конструктор со всеми параметрами
+AncetaStud::AncetaStud(char f[N], int nomerG, int nomerS, int r, typchik t) //Конструктор со всеми параметрами
 {
     strcpy(fio, f);
     nomerGrup = nomerG;
@@ -79,12 +79,12 @@ int AncetaStud::getreiting() //Получение значений переменной nomerGrup
     return reiting;
 };
 
-void AncetaStud::settype(int type) //Установка значений переменной type
+void AncetaStud::settype(typchik type) //Установка значений переменной type
 {
     this->type = type;
 };
 
-int AncetaStud::gettype() //Получение значений переменной nomerGrup
+typchik AncetaStud::gettype() //Получение значений переменной nomerGrup
 {
     return type;
 };
@@ -94,7 +94,7 @@ void AncetaStud::setuch(AncetaStud uch) //Установка значений переменной uch
     //strcpy(this->fio, fio);
     if (reiting >= 75)
     {
-        type = 1;
+        type = typchik::OTL;
         strcpy(this->uch.otl.dopstependia, "Студент получает степендию ");
         printf("Введите размер Дополнительной степендии\n");
         scanf("%d", &this->uch.otl.razmer);
@@ -103,7 +103,7 @@ void AncetaStud::setuch(AncetaStud uch) //Установка значений переменной uch
     {
         if (reiting >= 50)
         {
-            type = 2;
+            type = typchik::HOR;
             strcpy(this->uch.hor.stependia, "Студент  получает степендию ");
             printf("Введите размер обычной степендии\n");
             scanf("%d", &this->uch.hor.razmer);
@@ -112,12 +112,12 @@ void AncetaStud::setuch(AncetaStud uch) //Установка значений переменной uch
         {
             if (reiting >= 25)
             {
-                type = 3;
+                type = typchik::TRO;
                 strcpy(this->uch.hor.stependia, "Студент НЕ получает степендию ");
             }
             else
             {
-                type = 4;
+                type = typchik::DVO;
                 while (getchar() != '\n');
                 printf("Введите домашний адрес студента\n");
                 gets_s(this->uch.dvo.adres);
@@ -164,7 +164,7 @@ void AncetaStud::inputstud() //Блок - ввод данных о студентах
     printf(" ФИО: ");
     char fio[N];
     gets_s(fio);
-    a->setfio(fio);
+    setfio(fio);
 
     int nomerGrup;
     do {
@@ -175,7 +175,7 @@ void AncetaStud::inputstud() //Блок - ввод данных о студентах
             printf("Ошибка. Введите число от как показано в примере : ");
         }
     } while (nomerGrup < 10000 || nomerGrup >99999);
-    a->setnomerGrup(nomerGrup);
+    setnomerGrup(nomerGrup);
 
     int nomerStud;
     do {
@@ -186,7 +186,7 @@ void AncetaStud::inputstud() //Блок - ввод данных о студентах
             printf("Ошибка. Введите число как показано в примере: ");
         }
     } while (nomerStud < 1000000 || nomerStud >9999999);
-    a->setnomerStud(nomerStud);
+    setnomerStud(nomerStud);
 
     int reiting;
     do {
@@ -197,69 +197,211 @@ void AncetaStud::inputstud() //Блок - ввод данных о студентах
             printf("Ошибка. Введите число как показано в примере: ");
         }
     } while ((reiting < 0) || (reiting > 100));
-    a->setreiting(reiting);
+    setreiting(reiting);
 
     AncetaStud uch;
-    a->setuch(uch);
+    setuch(uch);
     printf("\n");
     while (getchar() != '\n');
 }
 
-void AncetaStud::outputstud(AncetaStud* a) //Блок - вывод данных о студентах
+void AncetaStud::outputstud() //Блок - вывод данных о студентах
 {
     char fio[N];
-    a->getfio(fio);
+    getfio(fio);
     printf(" %s ", fio);
 
     int nomerGrup;
-    nomerGrup = a->getnomerGrup();
+    nomerGrup = getnomerGrup();
     printf(" %d ", nomerGrup);
 
     int nomerStud;
-    nomerStud = a->getnomerStud();
+    nomerStud = getnomerStud();
     printf(" %d ", nomerStud);
 
     int reiting;
-    reiting = a->getreiting();
+    reiting = getreiting();
     printf(" %d ", reiting);
 
-    int type;
-    type = a->gettype();
-    if (type == 1)
+    typchik type;
+    type = gettype();
+    if (type == OTL)
     {
-        char dopstependia[30];
+        char dopstependia[N];
         int razmer1;
 
-        razmer1 = a->getuch1(dopstependia);
+        razmer1 = getuch1(dopstependia);
         printf(" %s ", dopstependia);
         printf(" %d ", razmer1);
     }
-    if (type == 2)
+    if (type == HOR)
     {
-        char stependia[30];
+        char stependia[N];
         int razmer2;
 
-        razmer2 = a->getuch2(stependia);
+        razmer2 = getuch2(stependia);
         printf(" %s ", stependia);
         printf(" %d ", razmer2);
     }
-    if (type == 3)
+    if (type == TRO)
     {
-        char stependia[30];
+        char stependia[N];
 
-        a->getuch3(stependia);
+        getuch3(stependia);
         printf(" %s ", stependia);
 
     }
-    if (type == 4)
+    if (type == DVO)
     {
-        char adres[30];
-        char telephone[30];
+        char adres[N];
+        char telephone[N];
 
-        a->getuch4(adres, telephone);
+        getuch4(adres, telephone);
         printf(" %s ", adres);
         printf(" %s ", telephone);
 
     }
     printf("\n");
+}
+
+int searchbynamestud(AncetaStud spisokstud[N], char  c[N]) //Блок - поиск по имени среди студентов
+{   // функция возращает количество найденных совпадений
+    int f1 = 0;
+    int i;
+
+    char fio[N];
+    int nomerGrup;
+    int nomerStud;
+    int reiting;
+    typchik type;
+
+    for (i = 0; i < N; i++)  //блок проверки запросов
+    {
+       
+        spisokstud[i].getfio(fio);
+        if (strcmp(c, fio) == 0)
+        {
+            nomerGrup = spisokstud[i].getnomerGrup();
+            nomerStud = spisokstud[i].getnomerStud();
+            reiting = spisokstud[i].getreiting();
+            type = spisokstud[i].gettype();
+            printf(" %s ", fio);
+            printf(" %d ", nomerGrup);
+            printf(" %d ", nomerStud);
+            printf(" %d ", reiting);
+            if (type == OTL)
+            {
+                char dopstependia[N];
+                int razmer1;
+
+                razmer1 = spisokstud[i].getuch1(dopstependia);
+                printf(" %s ", dopstependia);
+                printf(" %d ", razmer1);
+            }
+            if (type == HOR)
+            {
+                char stependia[N];
+                int razmer2;
+
+                razmer2 = spisokstud[i].getuch2(stependia);
+                printf(" %s ", stependia);
+                printf(" %d ", razmer2);
+            }
+            if (type == TRO)
+            {
+                char stependia[N];
+
+                spisokstud[i].getuch3(stependia);
+                printf(" %s ", stependia);
+
+            }
+            if (type == DVO)
+            {
+                char adres[N];
+                char telephone[N];
+
+                spisokstud[i].getuch4(adres, telephone);
+                printf(" %s ", adres);
+                printf(" %s ", telephone);
+
+            }
+            f1 = f1 + 1;
+            printf("\n");
+        }
+    }
+    if (f1 == 0)
+    {
+        printf("\n По вашему запросу ничего не найдено\n ");
+    }
+
+    return f1;
+}
+
+int searchbyreiting(AncetaStud spisokstud[N], int d) //Блок - поиск по рейтингу среди студентов
+{   // функция возращает количество найденных совпадений
+    int f2 = 0;
+    int i;
+    char fio[N];
+    int nomerGrup;
+    int nomerStud;
+    int reiting;
+    typchik type;
+    for (i = 0; i < N; i++)  //блок проверки запросов
+    {
+        reiting = spisokstud[i].getreiting();
+        if (d == reiting)
+        {
+            spisokstud[i].getfio(fio);
+            nomerGrup = spisokstud[i].getnomerGrup();
+            nomerStud = spisokstud[i].getnomerStud();
+            type = spisokstud[i].gettype();
+            printf(" %s ", fio);
+            printf(" %d ", nomerGrup);
+            printf(" %d ", nomerStud);
+            printf(" %d ", reiting);
+            if (type == OTL)
+            {
+                char dopstependia[N];
+                int razmer1;
+
+                razmer1 = spisokstud[i].getuch1(dopstependia);
+                printf(" %s ", dopstependia);
+                printf(" %d ", razmer1);
+            }
+            if (type == HOR)
+            {
+                char stependia[N];
+                int razmer2;
+
+                razmer2 = spisokstud[i].getuch2(stependia);
+                printf(" %s ", stependia);
+                printf(" %d ", razmer2);
+            }
+            if (type == TRO)
+            {
+                char stependia[N];
+
+                spisokstud[i].getuch3(stependia);
+                printf(" %s ", stependia);
+
+            }
+            if (type == DVO)
+            {
+                char adres[N];
+                char telephone[N];
+
+                spisokstud[i].getuch4(adres, telephone);
+                printf(" %s ", adres);
+                printf(" %s ", telephone);
+
+            }
+            f2 = f2 + 1;
+        }
+    }
+    if (f2 == 0)
+    {
+        printf("\n По вашему запросу ничего не найдено\n ");
+    }
+
+    return f2;
 }
