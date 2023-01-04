@@ -71,10 +71,10 @@ public:
     int getnomerStud(); //Получение значений переменной nomerStud
     int getreiting(); //Получение значений переменной reiting
     typchik gettype(); //Получение значений переменной type
-    int getuch1(char* dopstependia); //Получение значений переменной uch */
-    int getuch2(char* stependia); //Получение значений переменной uch */
-    void getuch3(char* stependia); //Получение значений переменной uch */
-    void getuch4(char* adres, char* telephone); //Получение значений переменной uch */
+    int getuch1(char dopstependia[N]); //Получение значений переменной uch */
+    int getuch2(char stependia[N]); //Получение значений переменной uch */
+    void getuch3(char stependia[N]); //Получение значений переменной uch */
+    void getuch4(char adres[N], char telephone[N]); //Получение значений переменной uch */
 
     void inputstud(); //Блок - ввод данных о студентах
     void outputstud(); //Блок - вывод данных о студентах

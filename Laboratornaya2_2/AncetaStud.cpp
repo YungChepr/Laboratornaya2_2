@@ -135,28 +135,28 @@ void AncetaStud::setuch(AncetaStud uch) //Установка значений переменной uch
     }
 };
 
-int AncetaStud::getuch1(char* dopstependia) //Получение значений переменной uch
+int AncetaStud::getuch1(char dopstependia[N]) //Получение значений переменной uch
 //Обязательным условием является выделение области памяти под этот указатель
 {
     strcpy(dopstependia, this->uch.otl.dopstependia);
     return uch.otl.razmer;
 };
 
-int AncetaStud::getuch2(char* stependia) //Получение значений переменной uch
+int AncetaStud::getuch2(char stependia[N]) //Получение значений переменной uch
 //Обязательным условием является выделение области памяти под этот указатель
 {
     strcpy(stependia, this->uch.hor.stependia);
     return uch.hor.razmer;
 };
 
-void AncetaStud::getuch3(char* stependia) //Получение значений переменной uch
+void AncetaStud::getuch3(char stependia[N]) //Получение значений переменной uch
 //Обязательным условием является выделение области памяти под этот указатель
 {
     strcpy(stependia, this->uch.tro.stependia);
 
 };
 
-void AncetaStud::getuch4(char* adres, char* telephone) //Получение значений переменной uch
+void AncetaStud::getuch4(char adres[N], char telephone[N]) //Получение значений переменной uch
 //Обязательным условием является выделение области памяти под этот указатель
 {
     strcpy(adres, this->uch.dvo.adres);
@@ -406,8 +406,9 @@ int searchbyreiting(AncetaStud *spisokstud[N], int d) //Блок - поиск по рейтингу
                 f2 = f2 + 1;
             }
         }
-        printf("\n");
+       
     }
+    printf("\n");
     if (f2 == 0)
     {
         printf("\n По вашему запросу ничего не найдено\n ");

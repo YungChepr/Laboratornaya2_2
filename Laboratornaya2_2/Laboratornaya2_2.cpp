@@ -4,9 +4,6 @@
 
 #include "AncetaStud.h"
 
-
-
-
 int main()
 {
     setlocale(LC_ALL, "RUS");
