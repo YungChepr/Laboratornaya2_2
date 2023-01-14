@@ -200,7 +200,7 @@ void AncetaStud::inputstud() //Ѕлок - ввод данных о студентах
             while (getchar() != '\n');
             printf("ќшибка. ¬ведите число как показано в примере: ");
         }
-    } while ((reiting < 0) || (reiting > 100));
+    } while ((reiting < 1) || (reiting > 100));
     setreiting(reiting);
 
     AncetaStud uch;
